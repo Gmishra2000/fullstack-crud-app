@@ -20,19 +20,11 @@ export const loginSchema = vine.object({
 
 
 
-
-// export const registerSchema = joi.object({
-//   name: joi.string().min(2).max(150).required(),
-//   email: joi.string().email().required(),
-//   password: joi.string().min(6).max(100).required(),
-//   confirmPassword: joi.string().valid(joi.ref('password')).required(),
-//   dob:joi.number().integer().min(1900).max(2025).required(),
-//   role: joi.valid(Role.ADMIN,Role.USER).optional(),
-// });
-
-// export const loginSchema = joi.object({
-//   email: joi.string().email().required(),
-//   password: joi.string().required(),
-// });
+export const userSchema = vine.object({
+  name: vine.string().minLength(2).maxLength(150).optional(),
+  email: vine.string().email().optional(),
+  dob: vine.date().optional(),
+  avatar: vine.string().optional()
+});
 
 

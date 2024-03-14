@@ -1,18 +1,21 @@
-// components/Login.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, TextField, MenuItem } from '@mui/material';
+import { useApiCall } from '../custom-hooks/useAPiCall';
+import authService from '../services/apiService.js';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '', role: '' });
   const [errors, setErrors] = useState({});
-
+   const {makeApiCall, isLoading, error} = useApiCall();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = {};
     if (!formData.email) {
@@ -28,7 +31,22 @@ const Login = () => {
     }
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      // Proceed with login
+      console.log(formData.email, formData.password);
+      const email = formData.email;
+      const password = formData.password;
+      const role = formData.role.toUpperCase()
+        try {
+          const result = await makeApiCall(authService.login, {email, password,role});
+          console.log(result, "line 16");
+          localStorage.setItem('token', result.access_token);
+          if (result.role === "ADMIN") {
+            navigate('/admin');
+          } else if (result.role === "USER") {
+            navigate('/user');
+          }
+        } catch (error) {
+          console.log(error);
+        }
     }
   };
 

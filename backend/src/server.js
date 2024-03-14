@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-
+import cors from "cors";
 const server = express();
 const PORT = process.env.PORT || 8000;
 
@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 8000;
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
+server.use(cors());
 server.get("/", (req, res) => {
   return res.json({ message: "Hello" });
 });

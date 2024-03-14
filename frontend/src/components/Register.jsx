@@ -1,15 +1,15 @@
-// components/Register.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, MenuItem, Typography } from '@mui/material';
+import { useApiCall } from '../custom-hooks/useAPiCall.js';
+import authService from '../services/apiService.js';
 
-// Import your default avatar image
-import defaultAvatar from '../assets/profile.png';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '', retypePassword: '', role: '', dob: '', avatar: defaultAvatar });
+   const navigate = useNavigate();
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', password_confirmation: '', role: '', dob: '' });
   const [errors, setErrors] = useState({});
-
+  const { makeApiCall, isLoading, error } = useApiCall();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -26,8 +26,8 @@ const Register = () => {
       case 'password':
         newErrors.password = value ? '' : 'Password is required';
         break;
-      case 'retypePassword':
-        newErrors.retypePassword = value === formData.password ? '' : 'Passwords do not match';
+      case 'password_confirmation':
+        newErrors.password_confirmation = value === formData.password ? '' : 'Passwords do not match';
         break;
       case 'role':
         newErrors.role = value ? '' : 'Role is required';
@@ -41,7 +41,7 @@ const Register = () => {
     setErrors(newErrors);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     let newErrors = {};
     if (!formData.name) {
@@ -55,11 +55,11 @@ const Register = () => {
     if (!formData.password) {
       newErrors.password = 'Password is required';
     }
-    if (!formData.retypePassword) {
-      newErrors.retypePassword = 'Please retype the password';
+    if (!formData.password_confirmation) {
+      newErrors.password_confirmation = 'Please retype the password';
     }
-    if (formData.password !== formData.retypePassword) {
-      newErrors.retypePassword = 'Passwords do not match';
+    if (formData.password !== formData.password_confirmation) {
+      newErrors.password_confirmation = 'Passwords do not match';
     }
     if (!formData.role) {
       newErrors.role = 'Select user role'
@@ -69,7 +69,14 @@ const Register = () => {
     }
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      // Proceed with registration
+      const { name, email, password, password_confirmation, dob, role } = formData;
+      try {
+        const result = await makeApiCall(authService.register, { name, email, password, password_confirmation, dob, role:role.toUpperCase() });
+        console.log(result); 
+        navigate('/login'); // Redirect to login page after successful registration
+      } catch (error) {
+        console.log(error); // Handle registration error
+      }
     }
   };
 
@@ -110,13 +117,13 @@ const Register = () => {
           />
           <TextField
             type="password"
-            name="retypePassword"
+            name="password_confirmation"
             label="Retype Password"
             variant="outlined"
-            value={formData.retypePassword}
+            value={formData.password_confirmation}
             onChange={handleChange}
-            error={!!errors.retypePassword}
-            helperText={errors.retypePassword}
+            error={!!errors.password_confirmation}
+            helperText={errors.password_confirmation}
           />
           <TextField
             select
@@ -134,18 +141,12 @@ const Register = () => {
           <TextField
             type="date"
             name="dob"
-            label="Date of Birth"
             variant="outlined"
             value={formData.dob}
             onChange={handleChange}
             error={!!errors.dob}
             helperText={errors.dob}
           />
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={formData.avatar} alt="Avatar" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
-            <Typography variant="body1">{formData.avatar ? formData.avatar.split('/').pop() : 'No image selected'}</Typography>
-          </div>
-          <input type="hidden" name="avatar" value={formData.avatar} />
           <Button type="submit" variant="contained" color="primary">Register</Button>
         </form>
         <Link to="/">Back to Home</Link>

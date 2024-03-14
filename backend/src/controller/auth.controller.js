@@ -12,12 +12,12 @@ class AuthController {
       const payload = await validator.validate(body);
 
       // check if email exist
-      const findUser = prisma.user.findUnique({
+      const findUser = await prisma.user.findUnique({
         where: {
           email: payload.email,
         },
       });
-
+      console.log(findUser,"line 20")
       if (findUser) {
         return res.status(400).json({
           errors: {
@@ -64,6 +64,7 @@ class AuthController {
           email: payload.email,
         },
       });
+      console.log(findUser,"registercontroller");
       if (findUser) {
         if (!bcrypt.compareSync(payload.password, findUser.password)) {
           return res.status(400).json({
@@ -79,6 +80,7 @@ class AuthController {
           email: findUser.email,
           avatar: findUser.avatar,
           dob: findUser.dob,
+          role:findUser.role,
         }
         const token = jwt.sign(payloadData, process.env.JWT_SECRET, {
           expiresIn: "365d",
@@ -86,6 +88,7 @@ class AuthController {
 
          return res.json({
            message: "Logged in",
+           role:findUser.role,
            access_token:`Bearer ${token}`
         });
       }
