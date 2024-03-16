@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, TextField, MenuItem } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useApiCall } from '../custom-hooks/useAPiCall';
 import authService from '../services/apiService.js';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
-   const {makeApiCall, isLoading, error} = useApiCall();
+  const { makeApiCall, isLoading, error } = useApiCall();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -29,28 +32,27 @@ const Login = () => {
 
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      console.log(formData.email, formData.password);
       const email = formData.email;
       const password = formData.password;
-        try {
-          const result = await makeApiCall(authService.login, {email, password});
-          console.log(result, "line 16");
-          localStorage.setItem('token', result.access_token);
-          if (result.role === "ADMIN") {
-            navigate('/admin');
-          } else if (result.role === "USER") {
-            navigate('/user');
-          }
-        } catch (error) {
-          console.log(error);
+      try {
+        const result = await makeApiCall(authService.login, { email, password });
+        localStorage.setItem('token', result.access_token);
+        toast.success(result.message);
+        if (result.role === "ADMIN") {
+          navigate('/admin');
+        } else if (result.role === "USER") {
+          navigate('/user');
         }
+      } catch (error) {
+        toast.error(error.message);
+      }
     }
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div>
-        <h2>Login</h2>
+        <h2 style={{textAlign:'center', marginBottom:'20px'}}>Login</h2>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '300px' }}>
           <TextField
             type="email"
@@ -74,7 +76,9 @@ const Login = () => {
           />
           <Button type="submit" variant="contained" color="primary">Login</Button>
         </form>
-        <Link to="/">Back to Home</Link>
+        <Link to="/" style={{ display: 'block', textAlign: 'center', marginTop: '20px', textDecoration: 'none' }}>
+          <Button variant="outlined" color="primary">Back to Home</Button>
+        </Link>
       </div>
     </div>
   );

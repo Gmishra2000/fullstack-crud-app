@@ -5,8 +5,8 @@ import { Button } from '@mui/material';
 
 const Home = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1>Welcome to My App</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      <h1 style={{ marginBottom: '20px' }}>Welcome to My App</h1>
       <div style={{ display: 'flex', gap: '10px' }}>
         <Link to="/login" style={{ textDecoration: 'none' }}>
           <Button variant="contained" color="primary">Login</Button>

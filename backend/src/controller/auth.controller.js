@@ -17,7 +17,7 @@ class AuthController {
           email: payload.email,
         },
       });
-      console.log(findUser,"line 20")
+      // console.log(findUser,"line 20")
       if (findUser) {
         return res.status(400).json({
           errors: {
@@ -40,7 +40,6 @@ class AuthController {
           user,
       });
     } catch (error) {
-      console.log(error,"in error-block");
       if (error instanceof errors.E_VALIDATION_ERROR) {
          return res.status(400).json({ errors: error.messages });
       } else {
@@ -64,7 +63,6 @@ class AuthController {
           email: payload.email,
         },
       });
-      console.log(findUser,"registercontroller");
       if (findUser) {
         if (!bcrypt.compareSync(payload.password, findUser.password)) {
           return res.status(400).json({
@@ -101,7 +99,6 @@ class AuthController {
       });
       return res.json({ payload });
     } catch (error) {
-      console.log(error,"in error-block");
       if (error instanceof errors.E_VALIDATION_ERROR) {
          return res.status(400).json({ errors: error.messages });
       } else {

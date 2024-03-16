@@ -10,7 +10,6 @@ const authMiddleware = (req, res, next) => {
   // * verify the jwt token
   jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
     if (err) {
-      console.log(err)
       return res.status(401).json({ status: 401, message: "UnAuthorized" });
     }
     const userData = await prisma.user.findUnique({
@@ -18,7 +17,6 @@ const authMiddleware = (req, res, next) => {
         id: Number(user.id)
       }
     })
-    console.log(userData, "line 21");
     if (!userData) {
        return res.status(401).json({ status: 401, message: "UnAuthorized" });
     }

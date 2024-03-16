@@ -1,7 +1,6 @@
 const RoleMiddleware = (role) => {
   return (req, res, next) => {
     const user = req.user;
-    console.log(user,role,"rolemiddleware");
     if (user.role !== role) {
       return res.status(401).json({
         status: 401,

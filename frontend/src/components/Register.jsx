@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, MenuItem, Typography } from '@mui/material';
 import { useApiCall } from '../custom-hooks/useAPiCall.js';
 import authService from '../services/apiService.js';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
    const navigate = useNavigate();
@@ -72,10 +73,11 @@ const Register = () => {
       const { name, email, password, password_confirmation, dob, role } = formData;
       try {
         const result = await makeApiCall(authService.register, { name, email, password, password_confirmation, dob, role:role.toUpperCase() });
-        console.log(result); 
+        toast.success(result.message);
         navigate('/login'); // Redirect to login page after successful registration
       } catch (error) {
-        console.log(error); // Handle registration error
+        toast.error(error.message); // tost message for registration error
+        console.log(error); 
       }
     }
   };
@@ -83,7 +85,7 @@ const Register = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div>
-        <h2>Register</h2>
+        <h2 style={{textAlign:'center', marginBottom:'20px'}}>Register</h2>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '300px' }}>
           <TextField
             type="text"
@@ -149,7 +151,9 @@ const Register = () => {
           />
           <Button type="submit" variant="contained" color="primary">Register</Button>
         </form>
-        <Link to="/">Back to Home</Link>
+        <Link to="/" style={{ display: 'block', textAlign: 'center', marginTop: '20px', textDecoration: 'none' }}>
+          <Button variant="outlined" color="primary">Back to Home</Button>
+        </Link>
       </div>
     </div>
   );

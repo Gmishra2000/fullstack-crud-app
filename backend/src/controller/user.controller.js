@@ -10,7 +10,6 @@ class UserController{
       const validator = vine.compile(userSchema);
       const payload = await validator.validate(body);
 
-      console.log(payload, req.user, "line 12");
       const userData = req.user;
 
       const findUser = await prisma.user.findUnique({
@@ -73,7 +72,6 @@ class UserController{
         message: "Profile updated successfully!",
       });
     } catch (error) {
-      console.log(error);
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return res.status(400).json({ errors: error.messages });
       } else {
@@ -88,7 +86,6 @@ class UserController{
 
   static async delete(req, res) {
     try {
-      console.log(req.params.id);
       const { id } = req.params;
       const user = req.user;
 
@@ -135,7 +132,6 @@ class UserController{
           role:true
         }
       });
-      console.log(userData);
       if (!userData) {
         return res.status(401).json({ message: "User Does not exist" });
       }
@@ -156,7 +152,8 @@ class UserController{
           id: true,
           name: true,
           dob: true,
-          avatar:true
+          avatar: true,
+          role: true
         }
       });
       const updatedData = userData.filter(user => { return user.id != id });;

@@ -24,9 +24,13 @@ export class AuthService {
                 data = await response.text();
               }
               
-              if (!response.ok) {
-                throw new Error(data.message);
-              }
+          if (!response.ok) {
+            if (typeof data === 'object' && data.errors && data.errors.email) {
+              throw new Error(data.errors.email);
+            } else {
+              throw new Error('Login failed');
+            }
+          }
               return data;
 
         }catch(error){
@@ -54,7 +58,11 @@ export class AuthService {
       }
 
       if (!response.ok) {
-        throw new Error(data.message);
+        if (typeof data === 'object' && data.errors && data.errors.email) {
+          throw new Error(data.errors.email); 
+        } else {
+          throw new Error('Registration failed'); 
+        }
       }
       return data;
     } catch (error) {
@@ -159,7 +167,6 @@ export class AuthService {
 
   async updateUser(updatedData) {
     const token = localStorage.getItem('token');
-    console.log(updatedData);
     if (!token) {
       throw new Error('Token not found');
     }

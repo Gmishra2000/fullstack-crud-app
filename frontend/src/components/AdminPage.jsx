@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory from React Router
+import { useNavigate } from 'react-router-dom'; 
 import { AppBar, Toolbar, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button, Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import authService from '../services/apiService.js';
-import defaultAvatar from '../assets/profile.png'; // Import the default avatar image
-
+import defaultAvatar from '../assets/profile.png'; 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
-  const adminName = 'Admin'; // Replace with actual admin name
-  const history = useNavigate(); // Initialize useHistory
+  const adminName = 'Admin';
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -29,21 +30,21 @@ const AdminPage = () => {
     try {
       const deleted = await authService.deleteUser(userId);
       if (deleted) {
-        // Remove the deleted user 
+        // Remove the deleted user from ui also
+        toast.success("User deleted successfully");
         setUsers(users.filter(user => user.id !== userId));
         console.log(`User with ID ${userId} deleted successfully`);
       }
     } catch (error) {
+      toast.success("error in deleting user");
       console.error('Error deleting user:', error);
     }
   };
 
   // Handle logout
   const handleLogout = () => {
-    // Perform logout actions here
-    // For example, clear local storage, redirect to homepage, etc.
-    localStorage.clear(); // Clear local storage if needed
-    history('/'); // Redirect to homepage
+    localStorage.clear(); // Clear local storage to remove token
+    navigate('/'); 
   };
 
   return (
@@ -70,6 +71,7 @@ const AdminPage = () => {
               <TableCell align="left">ID</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Date of Birth</TableCell>
+              <TableCell align="left">Role</TableCell>
               <TableCell align="left">Image</TableCell>
               <TableCell align="left">Action</TableCell>
             </TableRow>
@@ -80,6 +82,7 @@ const AdminPage = () => {
                 <TableCell align="left">{user.id}</TableCell>
                 <TableCell align="left">{user.name}</TableCell>
                 <TableCell align="left">{new Date(user.dob).toLocaleDateString()}</TableCell>
+                <TableCell align="left">{user.role}</TableCell>
                 <TableCell align="left"><Avatar alt={user ? user.name : 'Loading...'} src={user ? user.avatar || defaultAvatar : defaultAvatar} /></TableCell>
                 <TableCell align="left">
                   <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={() => handleDeleteUser(user.id)}>Delete</Button>

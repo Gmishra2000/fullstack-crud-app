@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory from React Router
+import { useNavigate } from 'react-router-dom'; 
 import { AppBar, Toolbar, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import EditIcon from '@mui/icons-material/Edit';
 import authService from '../services/apiService.js';
-import defaultAvatar from '../assets/profile.png'; // Import the default avatar image
+import defaultAvatar from '../assets/profile.png'; 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserPage = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -16,24 +18,23 @@ const UserPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [payload, setPayload] = useState({});
-  const history = useNavigate(); // Initialize useHistory
+  const navigate = useNavigate(); 
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await authService.getUserDetails();
+      setUserDetails(response.data);
+      setFormData({
+        name: response.data.name,
+        email: response.data.email,
+        dob: new Date(response.data.dob).toISOString().split('T')[0]
+      });
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const response = await authService.getUserDetails();
-        setUserDetails(response.data);
-        setFormData({
-          name: response.data.name,
-          email: response.data.email,
-          dob: new Date(response.data.dob).toISOString().split('T')[0]
-        });
-        console.log(formData.dob);
-      } catch (error) {
-        console.error('Error fetching user details:', error);
-      }
-    };
-
     fetchUserDetails();
   }, []);
 
@@ -44,7 +45,6 @@ const UserPage = () => {
 
   // Handle form input change
   const handleInputChange = (e) => {
-    console.log(e.target.name);
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -52,8 +52,7 @@ const UserPage = () => {
     }));
     validateField(name, value);
 
-    setPayload({...payload,[name]:value});
-    // console.log(payload,"line 53");
+    setPayload({ ...payload, [name]: value });
   };
 
   // Validate form field
@@ -87,12 +86,14 @@ const UserPage = () => {
       }));
     } else {
       try {
-        console.log(payload); // Make sure updatedData is correct here
         const result = await authService.updateUser(payload);
-        console.log('Updated user details:', result);
+        toast.success("User updated successfully");
         setOpenDialog(false);
-        // Update the user details state or perform any other actions as needed
+        
+        fetchUserDetails(); //make api call to get the updated data 
+
       } catch (error) {
+        toast.success("error in updating user");
         console.error('Error updating user details:', error);
       }
     }
@@ -100,10 +101,8 @@ const UserPage = () => {
 
   // Handle logout
   const handleLogout = () => {
-    // Perform logout actions here
-    // For example, clear local storage, redirect to homepage, etc.
-    localStorage.clear(); // Clear local storage if needed
-    history('/'); // Redirect to homepage
+    localStorage.clear();  // Clear local storage to remove token
+    navigate('/'); 
   };
 
   return (
@@ -142,6 +141,46 @@ const UserPage = () => {
           </Box>
         </Toolbar>
       </AppBar>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Edit User Details</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.name}
+            helperText={errors.name}
+          />
+          <TextField
+            label="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.email}
+            helperText={errors.email}
+          />
+          <TextField
+            label="Date of Birth"
+            name="dob"
+            type="date"
+            value={formData.dob}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.dob}
+            helperText={errors.dob}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button onClick={handleSubmit} color="primary">Update</Button>
+        </DialogActions>
+      </Dialog>
       <TableContainer>
         <Table>
           <TableHead>
