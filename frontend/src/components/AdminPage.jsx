@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useHistory from React Router
 import { AppBar, Toolbar, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Button, Box } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import authService from '../services/apiService.js';
+import defaultAvatar from '../assets/profile.png'; // Import the default avatar image
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const adminName = 'Admin'; // Replace with actual admin name
+  const history = useNavigate(); // Initialize useHistory
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,15 +38,28 @@ const AdminPage = () => {
     }
   };
 
+  // Handle logout
+  const handleLogout = () => {
+    // Perform logout actions here
+    // For example, clear local storage, redirect to homepage, etc.
+    localStorage.clear(); // Clear local storage if needed
+    history('/'); // Redirect to homepage
+  };
+
   return (
     <div>
       <AppBar position="static">
         <Toolbar style={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" component="div">
-            Hi, {adminName}
-          </Typography>
-          <Box position="relative">
+          <Box display="flex" alignItems="center">
             <Avatar alt={adminName} src="path/to/admin-avatar.png" />
+            <Typography variant="h6" component="div" sx={{ ml: 1 }}>
+              Hi, {adminName}
+            </Typography>
+          </Box>
+          <Box>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -54,6 +70,7 @@ const AdminPage = () => {
               <TableCell align="left">ID</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Date of Birth</TableCell>
+              <TableCell align="left">Image</TableCell>
               <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -63,6 +80,7 @@ const AdminPage = () => {
                 <TableCell align="left">{user.id}</TableCell>
                 <TableCell align="left">{user.name}</TableCell>
                 <TableCell align="left">{new Date(user.dob).toLocaleDateString()}</TableCell>
+                <TableCell align="left"><Avatar alt={user ? user.name : 'Loading...'} src={user ? user.avatar || defaultAvatar : defaultAvatar} /></TableCell>
                 <TableCell align="left">
                   <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={() => handleDeleteUser(user.id)}>Delete</Button>
                 </TableCell>

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', password: '', role: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
    const {makeApiCall, isLoading, error} = useApiCall();
   const handleChange = (e) => {
@@ -26,17 +26,14 @@ const Login = () => {
     if (!formData.password) {
       errors.password = 'Password is required';
     }
-    if (!formData.role) {
-      errors.role = 'Role is required';
-    }
+
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
       console.log(formData.email, formData.password);
       const email = formData.email;
       const password = formData.password;
-      const role = formData.role.toUpperCase()
         try {
-          const result = await makeApiCall(authService.login, {email, password,role});
+          const result = await makeApiCall(authService.login, {email, password});
           console.log(result, "line 16");
           localStorage.setItem('token', result.access_token);
           if (result.role === "ADMIN") {
@@ -75,19 +72,6 @@ const Login = () => {
             error={!!errors.password}
             helperText={errors.password}
           />
-          <TextField
-            select
-            name="role"
-            label="Role"
-            variant="outlined"
-            value={formData.role}
-            onChange={handleChange}
-            error={!!errors.role}
-            helperText={errors.role}
-          >
-            <MenuItem value="User">User</MenuItem>
-            <MenuItem value="Admin">Admin</MenuItem>
-          </TextField>
           <Button type="submit" variant="contained" color="primary">Login</Button>
         </form>
         <Link to="/">Back to Home</Link>

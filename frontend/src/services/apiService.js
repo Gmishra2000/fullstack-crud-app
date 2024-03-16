@@ -156,6 +156,43 @@ export class AuthService {
       throw error;
     }
   }
+
+  async updateUser(updatedData) {
+    const token = localStorage.getItem('token');
+    console.log(updatedData);
+    if (!token) {
+      throw new Error('Token not found');
+    }
+
+    try {
+      const response = await fetch(`${BASE_URL}/api/update`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      const contentType = response.headers.get('Content-Type');
+      let data;
+
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      return data;
+    } catch (error) {
+      throw error;
+    };
+  };
+
 }
 const authService = new AuthService();
 
