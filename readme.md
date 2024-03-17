@@ -2,7 +2,25 @@
 
 ## About
 
-I have divided the folder structure in two section frontend and backend. Frontend involved Login and Registration on Landing Page. Registration has two user Admin and User. Admin has the authority of viewing all the users present in User Database and role of deleting the users. User can only update it's profile and view it's own info.
+I have divided the folder structure in two section frontend and backend. Frontend involves Login and Registration on Landing Page. Registration has two user role Admin and User. Admin has the authority of viewing all the users present in database and role of deleting the users. User can only update it's profile and view it's own info.
+
+- Backend Work flow
+  - Created Schema for User model in Prisma
+  - Auth Controller for Handling login and registration.
+  - Making use of JWt for encrypting payload and generating token for further validation
+  - Added auth middleware for all api like getUser, getAlluser, delete, update
+  - Admin has only access to delete the user data hence added role middleware for that
+  - Update can be done by both user and admin
+  - Added file uploader for user's profile
+  - Have added validation for all schema using vine.js library
+
+- Frontend Work flow
+  - Main App folder contains all the components
+  - Home, Login, Registration, User, Admin, Not Found
+  - Restricted Protected Route for User and Admin
+  - Stored Jwt token after login in localstorage for restricted API with authorization
+  - Destroyed token after logout 
+
 
 
 
@@ -46,7 +64,10 @@ I have divided the folder structure in two section frontend and backend. Fronten
       │   │   > Admin Page -- Protected routes
       │   │   > Not found Page
       │   
-      │     
+      ├── Assets -- Contains Image of frontend UI
+      │
+      ├── API Collection in thunder client
+      │    
       └── README.md (you are here)
 
 ## Stack
@@ -84,11 +105,9 @@ I have divided the folder structure in two section frontend and backend. Fronten
 
 - **Backend**
 
-  - Info
   - Switch to `backend` directory `cd backend/`
- - Configuration
-  - Create local environment file `.env` taking referenced from `.env-example`
-  - Setup
+  - Configuration
+    - Create local environment file `.env` taking referenced from `.env-example`
     - Install packages using `npm i`
   - Run
     - Start API server: `npm start` (http://localhost:8000)
@@ -98,7 +117,7 @@ I have divided the folder structure in two section frontend and backend. Fronten
   - Switch to `frontend` directory `cd frontend/`
   - Configuration
     - Modify `environment.js` for
-      -Change API Base Url if you have backend running on other PORT
+    - Change API Base Url if you have backend running on other PORT
   - Setup
     - Install dependencies: `npm install`
   - Run
@@ -111,9 +130,6 @@ View all screenshots [here].
 
 <table>
   <tbody>
-    <tr>
-      <td colspan="2">Landing</td>
-    </tr>
     <tr>
       <td>
         <img alt="Landing" src="./assets/Home.jpeg" />
