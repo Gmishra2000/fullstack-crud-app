@@ -18,7 +18,7 @@
             "headers": [
                 {
                     "name": "authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWwxQGdtYWlsLmNvbSIsImF2YXRhciI6bnVsbCwiZG9iIjoiMjAyMy0wNC0xMVQxODozMDowMC4wMDBaIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MTA1MTg0MjYsImV4cCI6MTc0MjA1NDQyNn0.Zd8m6u-9oocTEZ2GuC7CMdHWYnf7Pe_6zgIqqzI_H9E"
+                    "value": "Bearer "
                 }
             ],
             "params": [],
@@ -49,7 +49,7 @@
             "headers": [
                 {
                     "name": "authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWxAZ21haWwuY29tIiwiYXZhdGFyIjpudWxsLCJkb2IiOiIyMDIzLTA0LTExVDE4OjMwOjAwLjAwMFoiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTA1MjE1ODUsImV4cCI6MTc0MjA1NzU4NX0.nHBziamd1wyp0hpfA-9lEsPmsug-Dc0VqH33T7JvZOk"
+                    "value": "Bearer "
                 }
             ],
             "params": [],
@@ -109,7 +109,7 @@
             "headers": [
                 {
                     "name": "authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWxAZ21haWwuY29tIiwiYXZhdGFyIjpudWxsLCJkb2IiOiIyMDIzLTA0LTExVDE4OjMwOjAwLjAwMFoiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTA1MTgwNjksImV4cCI6MTc0MjA1NDA2OX0.-i3pvyL4PtSgoH3Z3nKuT9Qw4a3CQpvCab0LY8gTMN4"
+                    "value": "Bearer "
                 }
             ],
             "params": [],
@@ -129,7 +129,7 @@
             "headers": [
                 {
                     "name": "authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6ImNhc2FzZHMiLCJlbWFpbCI6ImNoYW53YWRhbkBnbWFpbC5jb20iLCJhdmF0YXIiOm51bGwsImRvYiI6IjIwMjMtMDQtMTFUMTg6MzA6MDAuMDAwWiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMDQ0ODQwMSwiZXhwIjoxNzQxOTg0NDAxfQ.NPVDYBX7SHY0rW7H0VuBnyTi7JMVKRKtHWhygs1dqbg"
+                    "value": "Bearer "
                 }
             ],
             "params": [],
