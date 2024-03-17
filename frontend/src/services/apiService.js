@@ -78,7 +78,7 @@ export class AuthService {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/user', {
+      const response = await fetch(`${BASE_URL}/api/user`, {
         method: 'GET',
         headers: {
           'Authorization': `${token}`,
@@ -113,7 +113,7 @@ export class AuthService {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/users', {
+      const response = await fetch(`${BASE_URL}/api/users`, {
         method: 'GET',
         headers: {
           'Authorization': `${token}`,
@@ -147,7 +147,7 @@ export class AuthService {
         throw new Error('Access token not found');
       }
 
-      const response = await fetch(`http://localhost:8000/api/${userId}`, {
+      const response = await fetch(`${BASE_URL}/api/${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

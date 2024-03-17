@@ -1,0 +1,140 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Full stack Crud API",
+    "dateExported": "2024-03-17T15:31:19.471Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c83e87a1-2aac-494d-89a1-e43d72b427bd",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "Update User",
+            "url": "http://localhost:8000/api/update",
+            "method": "PATCH",
+            "sortNum": 10000,
+            "created": "2024-03-17T15:30:01.032Z",
+            "modified": "2024-03-17T15:30:01.032Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWwxQGdtYWlsLmNvbSIsImF2YXRhciI6bnVsbCwiZG9iIjoiMjAyMy0wNC0xMVQxODozMDowMC4wMDBaIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MTA1MTg0MjYsImV4cCI6MTc0MjA1NDQyNn0.Zd8m6u-9oocTEZ2GuC7CMdHWYnf7Pe_6zgIqqzI_H9E"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "avatar",
+                        "value": "c:\\Users\\Dell_Owner\\Pictures\\Screenshots\\Screenshot (264).png"
+                    }
+                ]
+            },
+            "reqType": "patch",
+            "tests": []
+        },
+        {
+            "_id": "edd05b83-c1e6-4a9d-b90b-46a75b2e0d81",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "GetAllUser",
+            "url": "http://localhost:8000/api/users",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-03-17T15:30:18.437Z",
+            "modified": "2024-03-17T15:30:18.437Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWxAZ21haWwuY29tIiwiYXZhdGFyIjpudWxsLCJkb2IiOiIyMDIzLTA0LTExVDE4OjMwOjAwLjAwMFoiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTA1MjE1ODUsImV4cCI6MTc0MjA1NzU4NX0.nHBziamd1wyp0hpfA-9lEsPmsug-Dc0VqH33T7JvZOk"
+                }
+            ],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "04188069-b81f-4536-8e21-bfdfd1482a73",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://localhost:8000/api/auth/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-03-17T15:30:33.247Z",
+            "modified": "2024-03-17T15:30:33.247Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"rahul@gmail.com\",\n  \"password\":\"123456\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "a2077d95-8e33-46d6-b599-181741b78e39",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "register",
+            "url": "http://localhost:8000/api/auth/register",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-03-17T15:30:41.487Z",
+            "modified": "2024-03-17T15:30:41.487Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"rahul\",\n  \"email\":\"rahul1@gmail.com\",\n  \"password\":\"123456\",\n  \"password_confirmation\":\"123456\",\n  \"dob\": \"2023-04-12\",\n  \"role\":\"USER\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "035ec8b5-20e0-485a-8814-2941ccbe83fe",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "deleteUser",
+            "url": "http://localhost:8000/api/12",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-03-17T15:30:48.134Z",
+            "modified": "2024-03-17T15:30:48.134Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsIm5hbWUiOiJyYWh1bCIsImVtYWlsIjoicmFodWxAZ21haWwuY29tIiwiYXZhdGFyIjpudWxsLCJkb2IiOiIyMDIzLTA0LTExVDE4OjMwOjAwLjAwMFoiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTA1MTgwNjksImV4cCI6MTc0MjA1NDA2OX0.-i3pvyL4PtSgoH3Z3nKuT9Qw4a3CQpvCab0LY8gTMN4"
+                }
+            ],
+            "params": [],
+            "reqType": "del",
+            "tests": []
+        },
+        {
+            "_id": "8e4bf1ad-065e-41b4-8491-a9241aaee33f",
+            "colId": "4b0c8ade-44fe-4932-acc2-e04ee0e800c6",
+            "containerId": "",
+            "name": "getUserById",
+            "url": "http://localhost:8000/api/user",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-03-17T15:30:54.790Z",
+            "modified": "2024-03-17T15:30:54.790Z",
+            "headers": [
+                {
+                    "name": "authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6ImNhc2FzZHMiLCJlbWFpbCI6ImNoYW53YWRhbkBnbWFpbC5jb20iLCJhdmF0YXIiOm51bGwsImRvYiI6IjIwMjMtMDQtMTFUMTg6MzA6MDAuMDAwWiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMDQ0ODQwMSwiZXhwIjoxNzQxOTg0NDAxfQ.NPVDYBX7SHY0rW7H0VuBnyTi7JMVKRKtHWhygs1dqbg"
+                }
+            ],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        }
+    ]
+}
