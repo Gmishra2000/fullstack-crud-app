@@ -131,6 +131,9 @@ View all screenshots here
 <table>
   <tbody>
     <tr>
+      <td colspan="2">Home</td>
+    </tr>
+    <tr>
       <td>
         <img alt="Landing" src="./assets/Home.jpeg" />
       </td>
