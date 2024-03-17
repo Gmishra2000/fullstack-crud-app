@@ -128,42 +128,8 @@ I have divided the folder structure in two section frontend and backend. Fronten
 
 View all screenshots here
 
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">Home</td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="Landing" src="./assets/Home.jpeg" />
-      </td>
-      <td>
-        <img alt="Landing" src="./assets/login.jpeg" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">Web</td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="Web" src="./assets/registration.jpeg" />
-      </td>
-      <td>
-        <img alt="Web" src="./assets/admin.jpeg" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">web</td>
-    </tr>
-    <tr>
-      <td>
-        <img alt="Mobile" src="./assets/user.jpeg" />
-      </td>
-    
-    </tr>
-  </tbody>
-</table>
 
-## Authors
+
+## Author
 
 - Chandan Mishra - [GitHub](https://github.com/Gmishra2000) )
