@@ -126,7 +126,7 @@ I have divided the folder structure in two section frontend and backend. Fronten
 
 ## Screenshots
 
-View all screenshots [here].
+View all screenshots here
 
 <table>
   <tbody>
